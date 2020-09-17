@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Лев Карпов](https://up.htmlacademy.ru/javascript/21/user/1072713).
-* Наставник: `Неизвестно`.
+* Наставник: [Павел Ерастов](https://htmlacademy.ru/profile/id1032917).
 
 ---
 
