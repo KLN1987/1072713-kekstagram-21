@@ -79,3 +79,33 @@ for (let m = 0; m < LENGTH_ARR_PICTURE; m++) {
   fragment.appendChild(renderPicture(pictures[m]));
 }
 similarListElement.appendChild(fragment);
+
+// задание 8(2). Все констаниы надо понять на верх, но позже мы будем разбивать все на отдельные файлы
+// проще будет переносить и сейчас ориентироваться.
+const bigPicture = document.querySelector(`.big-picture`);
+const bigPictureImg = bigPicture.querySelector(`.big-picture__img`);
+const imageBig = bigPictureImg.getElementsByTagName(`img`)[0];
+const likesCount = bigPicture.querySelector(`.likes-count`);
+const commentCount = bigPicture.querySelector(`.comments-count`);
+const socialCaption = document.querySelector(`.social__caption`);
+const socialComments = document.querySelector(`.social__comments`);
+const socialPictures = socialComments.querySelectorAll(`.social__picture`);
+const socialText = socialComments.querySelectorAll(`.social__text`);
+const socialCommentCount = document.querySelector(`.social__comment-count`);
+const commentsLoader = document.querySelector(`.comments-loader`);
+
+document.body.classList.add(`modal-open`);
+commentsLoader.classList.add(`hidden`);
+socialCommentCount.classList.add(`hidden`);
+bigPicture.classList.remove(`hidden`);
+imageBig.src = pictures[0].url;
+likesCount.textContent = pictures[0].like;
+commentCount.textContent = pictures[0].comment;
+socialCaption.textContent = pictures[0].description;
+
+for (let i = 0; i < socialPictures.length; i++) {
+  socialPictures[i].src = comments[i].avatar;
+  socialPictures[i].alt = comments[i].name;
+  socialText[i].textContent = comments[i].message;
+}
+
