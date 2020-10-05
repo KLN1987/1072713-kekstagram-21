@@ -1,3 +1,4 @@
+
 "use strict";
 /* задаем постоянные значения*/
 const LENGTH_ARR_PHOTO = 25;
@@ -80,7 +81,7 @@ for (let m = 0; m < LENGTH_ARR_PICTURE; m++) {
 }
 similarListElement.appendChild(fragment);
 
-// задание 8(2). Все констаниы надо понять на верх, но позже мы будем разбивать все на отдельные файлы
+// задание 8(2). Все константы надо понять на верх, но позже мы будем разбивать все на отдельные файлы
 // проще будет переносить и сейчас ориентироваться.
 const bigPicture = document.querySelector(`.big-picture`);
 const bigPictureImg = bigPicture.querySelector(`.big-picture__img`);
