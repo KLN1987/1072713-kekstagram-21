@@ -98,7 +98,7 @@ const commentsLoader = document.querySelector(`.comments-loader`);
 document.body.classList.add(`modal-open`);
 commentsLoader.classList.add(`hidden`);
 socialCommentCount.classList.add(`hidden`);
-bigPicture.classList.remove(`hidden`);
+bigPicture.classList.add(`hidden`);
 imageBig.src = pictures[0].url;
 likesCount.textContent = pictures[0].like;
 commentCount.textContent = pictures[0].comment;
