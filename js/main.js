@@ -1,4 +1,3 @@
-
 "use strict";
 /* задаем постоянные значения*/
 const LENGTH_ARR_PHOTO = 25;
