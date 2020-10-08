@@ -15,37 +15,30 @@ const socialFooterText = document.querySelector(`.social__footer-text`);
 const closeBigPicture = document.querySelector(`.big-picture__cancel`);
 const socialComment = document.querySelector(`.social__comment`);
 
-/* массив комментариев*/
 const COMMETS = [`Всё отлично!`, `В целом всё неплохо. Но не всё.`, `Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.`,
   `Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.`, `Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.`,
   `Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!`
 ];
-/* имя автора комента */
+
 const NAME_AUTHORS = [`Лев`, `Александр`, `Игорь`, `Даниил`, `Владимир`, `Антон`, `Михаил`, `Екатерина`, `Варвара`, `София`];
 
-/* Описание фото */
 const DESCRIPTIONS = [`Мое лето`, `Такая милота`, `Лучшее, что я видел на земле`, `Ммм...Классно!`, `Всё отлично!`, `Люблю свою жизнь!`, `Давайте просто улыбаться!`, `Мечты сбываются!`];
 
 const similarListElement = document.querySelector(`.pictures`);
 const similarPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-// нахождение рандомного чила в цикле
 const getRandomElement = function (arr) {
   return Math.floor(Math.random() * arr.length);
 };
 
-// нахождение целого случайного числа
 const getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 
 const getRandomComments = function () {
-  // создаем массив
   const comments = [];
-  // рандомное количество комментариев
   const randomCount = getRandomNumber(COUNT_OF_START_COMMENTS, COUNT_OF_END_COMMENTS);
-  // создаем цикл с последующим заполнением созданного выше массива рандомным количеством комментариев
   for (let i = 0; i < randomCount; i++) {
     const comment = {
       avatar: `img/avatar-` + getRandomNumber(NUMBER_FIRST_AVATAR, NUMBER_LAST_AVATAR) + `.svg`,
@@ -61,7 +54,7 @@ const pictures = [];
 const generateTestData = function () {
   for (let j = 1; j <= NUMBER_LAST_PHOTO; j++) {
     const picture = {
-      photo: `photos/` + /* randomNumber(NUMBER_FIRST_PHOTO, NUMBER_LAST_PHOTO) */ j + `.jpg`,
+      photo: `photos/${j}.jpg`,
       likes: getRandomNumber(LIKE_START, LIKE_END),
       comments: getRandomComments(),
       description: DESCRIPTIONS[getRandomElement(DESCRIPTIONS)]
@@ -85,9 +78,9 @@ const renderSinglePictures = function (item) {
 
 const renderListPictures = function (arr) {
   const fragment = document.createDocumentFragment();
-  for (let k = 0; k < arr.length; k++) {
-    fragment.appendChild(renderSinglePictures(arr[k]));
-  }
+  arr.forEach(function (item) {
+    fragment.appendChild(renderSinglePictures(item));
+  });
   similarListElement.appendChild(fragment);
 };
 
@@ -95,39 +88,34 @@ renderListPictures(pictures);
 
 const getSocialComment = function (item) {
   const socialCommentElement = socialComment.cloneNode(true);
-  // заполняемые элементы блока - аватар, имя
   socialCommentElement.querySelector(`.social__picture`).src = item.avatar;
   socialCommentElement.querySelector(`.social__picture`).alt = item.name;
-  // Заполняем текстом комментария
   socialCommentElement.querySelector(`p`).textContent = item.message;
 
   return socialCommentElement;
 };
 
 const getOpenBigPhoto = function (item) {
-  // Показываем картинку большую
   bigPicture.classList.remove(`hidden`);
-  // Находим элементы для заполнения
+
   const bigPictureImg = bigPicture.querySelector(`.big-picture__img`).querySelector(`img`);
-  // адрес картинки
+
   bigPictureImg.src = item.photo;
-  // кол-во лайков
   bigPicture.querySelector(`.likes-count`).textContent = item.likes;
-  // комментарии
   bigPicture.querySelector(`.comments-count`).textContent = item.comments.length;
-  // Создает фрагмент, для вставки комменатриев
+
   const fragment = document.createDocumentFragment();
-  // Заполняет новые комментарии
-  for (let i = 0; i < item.comments.length; i++) {
-    fragment.appendChild(getSocialComment(item.comments[i]));
-  }
-  // Чистит блок комментариев в разметке
+
+  item.comments.forEach(function (i) {
+    fragment.appendChild(getSocialComment(i));
+  });
+
   socialCommentTemplate.innerHTML = ``;
-  // Добавляет новые комментарии
+
   socialCommentTemplate.appendChild(fragment);
-  // Описание фотографии
+
   bigPicture.querySelector(`.social__caption`).textContent = item.description;
-  // return showBigPicture;
+
   document.querySelector(`body`).classList.add(`modal-open`);
 };
 
@@ -143,17 +131,11 @@ for (let i = 0; i < smallPictures.length; i++) {
   showBigPicture(smallPictures[i], pictures[i]);
 }
 
-// открываем большую картинку
-// document.querySelector(`.social__comment-count`).classList.add(`hidden`);
-// скрываем счетчик комментариев
-// document.querySelector(`.comments-loader`).classList.add(`hidden`);
-
 closeBigPicture.addEventListener(`click`, function () {
   document.querySelector(`.big-picture`).classList.add(`hidden`);
   document.querySelector(`body`).classList.remove(`modal-open`);
 });
 
-// ???
 const onEscClose = function (evt) {
   if (evt.key === ESC || socialFooterText === document.activeElement) {
     document.querySelector(`.big-picture`).classList.remove(`hidden`);

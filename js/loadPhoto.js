@@ -127,15 +127,15 @@ const getEffectsStyle = function (effect, value) {
     case `none`:
       return `none`;
     case `chrome`:
-      return `grayscale(` + effectValue + `)`;
+      return `grayscale(${effectValue})`;
     case `sepia`:
-      return `sepia(` + effectValue + `)`;
+      return `sepia(${effectValue})`;
     case `marvin`:
-      return `invert(` + effectValue + `%` + `)`;
+      return `invert(${effectValue}%)`;
     case `phobos`:
-      return `blur(` + effectValue + `px` + `)`;
+      return `blur(${effectValue}px)`;
     case `heat`:
-      return `brightness(` + effectValue + `)`;
+      return `brightness(${effectValue})`;
     default:
       return ``;
   }
