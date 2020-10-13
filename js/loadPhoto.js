@@ -102,7 +102,7 @@ const EFFECTS_VALUE_MAX = {
 
 const onChangeEffect = function () {
   currentEffect = document.querySelector(`.effects__radio:checked`).value;
-  imgForEffect.className = `effects__preview--` + currentEffect;
+  imgForEffect.className = `effects__preview--${currentEffect}`;
   imgUploadEffectLevel.classList[(currentEffect === `none`) ? `add` : `remove`](`hidden`);
   setEffectsValue();
 };
@@ -121,8 +121,8 @@ const setEffectsValue = function () {
 };
 
 const getEffectsStyle = function (effect, value) {
-  const currentValue = EFFECTS_VALUE_MAX[effect][`min`] + (EFFECTS_VALUE_MAX[effect][`max`] - EFFECTS_VALUE_MAX[effect][`min`]) * value;
-  const effectValue = (typeof value === `undefined`) ? EFFECTS_VALUE_MAX[effect][`max`] : currentValue;
+  const currentValue = EFFECTS_VALUE_MAX[effect].min + (EFFECTS_VALUE_MAX[effect].max - EFFECTS_VALUE_MAX[effect].min) * value;
+  const effectValue = (typeof value === `undefined`) ? EFFECTS_VALUE_MAX[effect].max : currentValue;
   switch (effect) {
     case `none`:
       return `none`;
