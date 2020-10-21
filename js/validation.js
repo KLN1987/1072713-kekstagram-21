@@ -45,6 +45,7 @@
 
     if (hashtagArray.length > 5) {
       hashtagText.setCustomValidity(`Хэштегов может быть максимум 5`);
+      return;
     }
 
     if (hashtagText.value === ``) {
