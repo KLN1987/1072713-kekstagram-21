@@ -7,7 +7,6 @@
   const socialFooterText = document.querySelector(`.social__footer-text`);
   const closeBigPicture = document.querySelector(`.big-picture__cancel`);
   const socialComment = document.querySelector(`.social__comment`);
-  const smallPictures = document.querySelectorAll(`.picture`);
 
   const similarListElement = document.querySelector(`.pictures`);
   const similarPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
@@ -25,10 +24,10 @@
 
   const getSocialComment = function (item) {
     const socialCommentElement = socialComment.cloneNode(true);
-    let commentsItem = item.comments[0];
-    socialCommentElement.querySelector(`.social__picture`).src = commentsItem.avatar;
-    socialCommentElement.querySelector(`.social__picture`).alt = commentsItem.name;
-    socialCommentElement.querySelector(`p`).textContent = commentsItem.message;
+
+    socialCommentElement.querySelector(`.social__picture`).src = item.avatar;
+    socialCommentElement.querySelector(`.social__picture`).alt = item.name;
+    socialCommentElement.querySelector(`p`).textContent = item.message;
 
     return socialCommentElement;
   };
@@ -46,21 +45,20 @@
   const successSocialCommets = function (photo) {
     const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < MAX_PHOTO_COUNT; i++) {
-      fragment.appendChild(getSocialComment(photo[i]));
+    for (let i = 0; i < photo.comments.length; i++) {
+      fragment.appendChild(getSocialComment(photo.comments[i]));
     }
     socialCommentTemplate.innerHTML = ``;
     socialCommentTemplate.appendChild(fragment);
-    // userDialog.querySelector('.setup-similar').classList.remove('hidden');
   };
 
-  const getOpenBigPhoto = function (item) {
+  const openBigPhoto = function (item) {
     bigPicture.classList.remove(`hidden`);
 
     const bigPictureImg = bigPicture.querySelector(`.big-picture__img`).querySelector(`img`);
-    bigPictureImg.src = item.src;
+    bigPictureImg.src = item.url;
     bigPicture.querySelector(`.likes-count`).textContent = item.likes;
-    bigPicture.querySelector(`.comments-count`).textContent = item.comments[0].length;
+    bigPicture.querySelector(`.comments-count`).textContent = item.comments.length;
 
     bigPicture.querySelector(`.social__caption`).textContent = item.description;
 
@@ -79,12 +77,6 @@
       document.querySelector(`.big-picture`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     }
-  };
-
-  const showBigPicture = function (photo, item) {
-    photo.addEventListener(`click`, function () {
-      getOpenBigPhoto(item);
-    });
   };
 
   document.addEventListener(`keydown`, onEscClose);
@@ -114,16 +106,16 @@
         response.json().then(function (json) {
           let data = json;
           successHandler(data);
-          successSocialCommets(data);
+          const smallPictures = document.querySelectorAll(`.picture`);
           for (let i = 0; i < smallPictures.length; i++) {
-            showBigPicture(smallPictures[i], data);
+            smallPictures[i].addEventListener(`click`, function (evt) {
+              evt.preventDefault();
+              successSocialCommets(data[i]);
+              openBigPhoto(data[i]);
+            });
           }
         });
       }
-  )
-  .catch(
-      function (err) {
-        errorHandler(`Fetch Error :-S`, err);
-      });
+  );
 
 })();
