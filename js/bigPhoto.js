@@ -82,7 +82,7 @@
   });
 
   const onEscClose = function (evt) {
-    if (evt.key === window.util.ESC_KEYCODE || socialFooterText === document.activeElement) {
+    if (evt.key == window.util.ESC_KEYCODE && socialFooterText === document.activeElement) {
       document.querySelector(`.big-picture`).classList.remove(`hidden`);
     } else {
       document.querySelector(`.big-picture`).classList.add(`hidden`);

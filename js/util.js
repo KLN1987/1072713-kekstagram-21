@@ -33,7 +33,6 @@
     imgForEffect.removeAttribute(`class`);
     imgForEffect.removeAttribute(`style`);
     imgForEffect.classList.add(`effect-none`);
-    document.removeEventListener(`keydown`, onPopupEscPress);
   };
 
   uploadFile.addEventListener(`change`, function () {
@@ -44,8 +43,10 @@
     closePopup();
   });
 
+  document.removeEventListener(`keydown`, onPopupEscPress);
+
   window.util = {
-    ESC_KEYCODE: ESC_KEY
+    ESC_KEYCODE: `Escape`
   };
 
 })();

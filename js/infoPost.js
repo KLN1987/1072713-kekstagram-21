@@ -8,6 +8,14 @@
   const success = document.querySelector(`#success`);
   const error = document.querySelector(`#error`);
 
+  const onEscCloseWindow = function (evt) {
+    if (evt.key === window.util.ESC_KEYCODE) {
+      document.querySelector(`.success`).classList.add(`hidden`);
+      document.querySelector(`.error`).classList.add(`hidden`);
+      document.querySelector(`body`).classList.remove(`modal-open`);
+    }
+  };
+
   const openSuccessWindow = function () {
     bigPhoto.classList.add(`hidden`);
     document.querySelector(`body`).classList.add(`modal-open`);
@@ -17,6 +25,7 @@
       document.querySelector(`.success`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     });
+    document.addEventListener(`keydown`, onEscCloseWindow);
   };
 
   const openErrorWindow = function () {
@@ -28,11 +37,12 @@
       document.querySelector(`.error`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     });
+    document.addEventListener(`keydown`, onEscCloseWindow);
   };
 
   window.infoPost = {
     openErrorWindow: openErrorWindow,
-    openSuccessWindow: openSuccessWindow
+    openSuccessWindow: openSuccessWindow,
   };
 
 })();
