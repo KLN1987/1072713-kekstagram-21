@@ -8,9 +8,15 @@
   const success = document.querySelector(`#success`);
   const error = document.querySelector(`#error`);
 
-  const onEscCloseWindow = function (evt) {
+  const onEscCloseSuccesWindow = function (evt) {
     if (evt.key === window.util.ESC_KEYCODE) {
       document.querySelector(`.success`).classList.add(`hidden`);
+      document.querySelector(`body`).classList.remove(`modal-open`);
+    }
+  };
+
+  const onEscCloseErrorWindow = function (evt) {
+    if (evt.key === window.util.ESC_KEYCODE) {
       document.querySelector(`.error`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     }
@@ -25,7 +31,7 @@
       document.querySelector(`.success`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     });
-    document.addEventListener(`keydown`, onEscCloseWindow);
+    document.addEventListener(`keydown`, onEscCloseSuccesWindow);
   };
 
   const openErrorWindow = function () {
@@ -37,7 +43,7 @@
       document.querySelector(`.error`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     });
-    document.addEventListener(`keydown`, onEscCloseWindow);
+    document.addEventListener(`keydown`, onEscCloseErrorWindow);
   };
 
   window.infoPost = {
