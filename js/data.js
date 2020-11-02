@@ -57,6 +57,6 @@
   generateTestData();
 
   window.data = {
-    pictures: pictures
+    pictures
   };
 })();

@@ -42,7 +42,7 @@
     similarListElement.appendChild(fragment);
   };
 
-  const successSocialCommets = function (photo) {
+  const insertSocialCommets = function (photo) {
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < photo.comments.length; i++) {
@@ -70,7 +70,7 @@
     for (let i = 0; i < smallPictures.length; i++) {
       smallPictures[i].addEventListener(`click`, function (evt) {
         evt.preventDefault();
-        successSocialCommets(data[i]);
+        insertSocialCommets(data[i]);
         openBigPhoto(data[i]);
       });
     }
@@ -105,9 +105,9 @@
   };
 
   window.bigPhoto = {
-    successHandler: successHandler,
-    showBigPhoto: showBigPhoto,
-    errorHandler: errorHandler
+    successHandler,
+    showBigPhoto,
+    errorHandler
   };
 
 })();

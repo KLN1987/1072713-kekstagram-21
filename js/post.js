@@ -3,7 +3,7 @@
 (function () {
 
   const ajaxSend = async function (formData) {
-    const url = `https://21.javascript.pages.academy/kekstagram`;
+    const url = `https://21.javascript.pages.academy/kekstagra`;
     const fetchResp = await fetch(url, {
       method: `POST`,
       body: formData
@@ -25,13 +25,10 @@
 
       ajaxSend(formData)
               .then(() => {
-                form.reset(); // очищаем поля формы
+                form.reset();
               })
-              .catch((err) => (
-                // eslint-disable-next-line no-sequences
-                form.reset(),
-                // eslint-disable-next-line no-console
-                console.log(err)
+              .catch(() => (
+                form.reset()
               ));
     });
   });

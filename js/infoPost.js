@@ -47,8 +47,8 @@
   };
 
   window.infoPost = {
-    openErrorWindow: openErrorWindow,
-    openSuccessWindow: openSuccessWindow,
+    openErrorWindow,
+    openSuccessWindow
   };
 
 })();
