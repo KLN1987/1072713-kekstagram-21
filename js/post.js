@@ -3,7 +3,7 @@
 (function () {
 
   const ajaxSend = async function (formData) {
-    const url = `https://21.javascript.pages.academy/kekstagra`;
+    const url = `https://21.javascript.pages.academy/kekstagram`;
     const fetchResp = await fetch(url, {
       method: `POST`,
       body: formData
