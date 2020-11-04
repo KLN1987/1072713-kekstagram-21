@@ -1,8 +1,17 @@
-root: true
+{
+"root": true,
 
-env:
-  es6: true
-  browser: true
+"env": {
+  "es6": true,
+  "browser": true
+},
 
-extends:
-  "htmlacademy/es5.5"
+"parserOptions": {
+    "ecmaVersion": 2017,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+},
+
+"extends": ["htmlacademy/es5.5"]
+}

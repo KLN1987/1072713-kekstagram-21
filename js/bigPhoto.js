@@ -42,7 +42,7 @@
     similarListElement.appendChild(fragment);
   };
 
-  const successSocialCommets = function (photo) {
+  const insertSocialCommets = function (photo) {
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < photo.comments.length; i++) {
@@ -65,13 +65,24 @@
     document.querySelector(`body`).classList.add(`modal-open`);
   };
 
+  const showBigPhoto = function (data) {
+    const smallPictures = document.querySelectorAll(`.picture`);
+    for (let i = 0; i < smallPictures.length; i++) {
+      smallPictures[i].addEventListener(`click`, function (evt) {
+        evt.preventDefault();
+        insertSocialCommets(data[i]);
+        openBigPhoto(data[i]);
+      });
+    }
+  };
+
   closeBigPicture.addEventListener(`click`, function () {
     document.querySelector(`.big-picture`).classList.add(`hidden`);
     document.querySelector(`body`).classList.remove(`modal-open`);
   });
 
   const onEscClose = function (evt) {
-    if (evt.key === window.util.ESC_KEYCODE || socialFooterText === document.activeElement) {
+    if (evt.key === window.util.ESC_KEYCODE && socialFooterText === document.activeElement) {
       document.querySelector(`.big-picture`).classList.remove(`hidden`);
     } else {
       document.querySelector(`.big-picture`).classList.add(`hidden`);
@@ -93,29 +104,10 @@
     document.body.insertAdjacentElement(`afterbegin`, node);
   };
 
-  fetch(`https://21.javascript.pages.academy/kekstagram/data`)
-  .then(
-      function (response) {
-        if (response.status !== 200) {
-          errorHandler(`Looks like there was a problem. Status Code: ` +
-            response.status);
-          return;
-        }
-
-        // Examine the text in the response
-        response.json().then(function (json) {
-          let data = json;
-          successHandler(data);
-          const smallPictures = document.querySelectorAll(`.picture`);
-          for (let i = 0; i < smallPictures.length; i++) {
-            smallPictures[i].addEventListener(`click`, function (evt) {
-              evt.preventDefault();
-              successSocialCommets(data[i]);
-              openBigPhoto(data[i]);
-            });
-          }
-        });
-      }
-  );
+  window.bigPhoto = {
+    successHandler,
+    showBigPhoto,
+    errorHandler
+  };
 
 })();
