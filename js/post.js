@@ -1,16 +1,16 @@
 "use strict";
 
 (function () {
-
   const ajaxSend = async function (formData) {
     const url = `https://21.javascript.pages.academy/kekstagram`;
     const fetchResp = await fetch(url, {
       method: `POST`,
-      body: formData
+      body: formData,
     });
     if (!fetchResp.ok) {
       window.infoPost.openErrorWindow();
-      throw new Error(`Ошибка по адресу ${url}, статус ошибки ${fetchResp.status}`);
+      throw new Error(`Ошибка по адресу ${url}, статус ошибки ${fetchResp.status}`
+      );
     }
     return window.infoPost.openSuccessWindow();
   };
@@ -24,13 +24,10 @@
       const formData = new FormData(this);
 
       ajaxSend(formData)
-              .then(() => {
-                form.reset();
-              })
-              .catch(() => (
-                form.reset()
-              ));
+        .then(() => {
+          form.reset();
+        })
+        .catch(() => form.reset());
     });
   });
-
 })();
