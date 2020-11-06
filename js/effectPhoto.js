@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 (function () {
   const DEFAULT_VALUE_MAX = 100;
@@ -22,13 +22,19 @@
   const resizeImg = function (evt) {
     let elem = evt.target;
     let curValue = parseInt(scaleControlValue.value, 10);
-    let newContorlValue = elem.classList.contains(`scale__control--smaller`) ? curValue - DEFAULT_VALUE_STEP : curValue + DEFAULT_VALUE_STEP;
+    let newContorlValue = elem.classList.contains(`scale__control--smaller`)
+      ? curValue - DEFAULT_VALUE_STEP
+      : curValue + DEFAULT_VALUE_STEP;
 
-    if (newContorlValue > DEFAULT_VALUE_MAX || newContorlValue < DEFAULT_VALUE_MIN) {
+    if (
+      newContorlValue > DEFAULT_VALUE_MAX ||
+      newContorlValue < DEFAULT_VALUE_MIN
+    ) {
       return;
     }
     scaleControlValue.value = newContorlValue + `%`;
-    imgForEffect.style.transform = `scale(` + newContorlValue / DEFAULT_VALUE_MAX + `)`;
+    imgForEffect.style.transform =
+      `scale(` + newContorlValue / DEFAULT_VALUE_MAX + `)`;
   };
 
   scaleControlMinus.addEventListener(`click`, resizeImg);
@@ -38,30 +44,30 @@
     none: `none`,
     chrome: {
       min: 0,
-      max: 1
+      max: 1,
     },
     sepia: {
       min: 0,
-      max: 1
+      max: 1,
     },
     marvin: {
       min: 0,
-      max: 100
+      max: 100,
     },
     phobos: {
       min: 1,
-      max: 3
+      max: 3,
     },
     heat: {
       min: 1,
-      max: 3
+      max: 3,
     },
   };
 
   const onChangeEffect = function () {
     currentEffect = document.querySelector(`.effects__radio:checked`).value;
     imgForEffect.className = `effects__preview--${currentEffect}`;
-    imgUploadEffectLevel.classList[(currentEffect === `none`) ? `add` : `remove`](`hidden`);
+    imgUploadEffectLevel.classList[currentEffect === `none` ? `add` : `remove`](`hidden`);
     setEffectsValue();
   };
 
@@ -70,7 +76,8 @@
   });
 
   const setEffectsValue = function () {
-    const position = effectLevelLine.offsetWidth - effectLevelPin.offsetWidth / 2;
+    const position =
+      effectLevelLine.offsetWidth - effectLevelPin.offsetWidth / 2;
 
     effectLevelPin.style.left = position + `px`;
     effectLevelDepth.style.width = position + `px`;
@@ -79,8 +86,11 @@
   };
 
   const getEffectsStyle = function (effect, value) {
-    const currentValue = EFFECTS_VALUE_MAX[effect].min + (EFFECTS_VALUE_MAX[effect].max - EFFECTS_VALUE_MAX[effect].min) * value;
-    const effectValue = (value === undefined) ? EFFECTS_VALUE_MAX[effect].max : currentValue;
+    const currentValue =
+      EFFECTS_VALUE_MAX[effect].min +
+      (EFFECTS_VALUE_MAX[effect].max - EFFECTS_VALUE_MAX[effect].min) * value;
+    const effectValue =
+      value === undefined ? EFFECTS_VALUE_MAX[effect].max : currentValue;
     switch (effect) {
       case `none`:
         return `none`;
@@ -124,8 +134,8 @@
       effectLevelPin.style.left = coordPin + `px`;
       effectLevelDepth.style.width = coordPin + `px`;
       effectLevelValue.setAttribute(`value`, coordPin);
-      imgForEffect.style.filter = getEffectsStyle(currentEffect, coordPin / effectLevelLine.offsetWidth);
-
+      imgForEffect.style.filter = getEffectsStyle(currentEffect, coordPin / effectLevelLine.offsetWidth
+      );
     };
     const onMouseUp = function (upEvt) {
       upEvt.preventDefault();

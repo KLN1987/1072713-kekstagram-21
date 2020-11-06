@@ -1,7 +1,6 @@
-'use strict';
+"use strict";
 
 (function () {
-
   const hashtagText = document.querySelector(`.text__hashtags`);
   const uploadSubmit = document.querySelector(`#upload-submit`);
 

@@ -46,7 +46,6 @@
   document.removeEventListener(`keydown`, onPopupEscPress);
 
   window.util = {
-    ESC_KEYCODE: `Escape`
+    ESC_KEYCODE: `Escape`,
   };
-
 })();
