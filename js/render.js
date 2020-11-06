@@ -1,10 +1,9 @@
 "use strict";
 
 (function () {
+  const btnsFilter = document.querySelectorAll(`.img-filters__button`);
   const similarListElement = document.querySelector(`.pictures`);
   const similarPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
-
-  let photos = [];
 
   const renderSinglePictures = function (item) {
     const pictureElement = similarPictureTemplate.cloneNode(true);
@@ -35,41 +34,30 @@
     });
   };
 
-  const renderListPhotos = window.debounce(function (data) {
-    document.querySelector(`#filter-default`).addEventListener(`click`, function () {
-      removePictures(data);
-      window.sort.shufflePictures(data);
-      successHandler(data);
-      window.bigPhoto.showBigPhoto(data);
-    });
-  });
-
-  const renderPhotos = window.debounce(function (data) {
-    photos = data;
-    document.querySelector(`#filter-discussed`).addEventListener(`click`, function () {
-      removePictures(data);
-      window.sort.sortPicturesByComments(data);
-      successHandler(photos);
-      window.bigPhoto.showBigPhoto(photos);
-    });
-  });
-
-  const renderTenPhotos = window.debounce(function (data) {
-    photos = data;
-    document.querySelector(`#filter-random`).addEventListener(`click`, function () {
-      removePictures(data);
-      window.sort.shufflePictures(data);
-      successHandler(photos.slice(0, 10));
-      window.bigPhoto.showBigPhoto(photos);
+  const switchPhotosList = window.debounce(function (data) {
+    btnsFilter.forEach(function (btn) {
+      btn.addEventListener(`click`, function (evt) {
+        removePictures(data);
+        if (evt.target.id === `filter-default`) {
+          window.sort.shufflePictures(data);
+          successHandler(data);
+        }
+        if (evt.target.id === `filter-discussed`) {
+          window.sort.sortPicturesByComments(data);
+          successHandler(data);
+        }
+        if (evt.target.id === `filter-random`) {
+          window.sort.shufflePictures(data);
+          successHandler(data.slice(0, 10));
+        }
+        window.bigPhoto.showBigPhoto(data);
+      });
     });
   });
 
   window.render = {
     successHandler,
-    renderPhotos,
-    renderListPhotos,
-    renderTenPhotos,
-    removePictures
+    switchPhotosList
   };
 
 })();

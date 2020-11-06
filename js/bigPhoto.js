@@ -34,9 +34,11 @@
     const bigPictureImg = bigPicture.querySelector(`.big-picture__img`).querySelector(`img`);
     bigPictureImg.src = item.url;
     bigPicture.querySelector(`.likes-count`).textContent = item.likes;
-    bigPicture.querySelector(`.comments-count`).textContent = item.comments.length;
+    // bigPicture.querySelector(`.comments-count`).textContent = item.comments.length;
 
     bigPicture.querySelector(`.social__caption`).textContent = item.description;
+    bigPicture.querySelector(`.social__comment-count`).textContent = ``;
+    bigPicture.querySelector(`.social__comment-count`).textContent = `${item.comments.length} из ${item.comments.length} комментариев`;
 
     document.querySelector(`body`).classList.add(`modal-open`);
   };

@@ -8,10 +8,11 @@
     .then(function (data) {
       document.querySelector(`.img-filters`).classList.remove(`img-filters--inactive`);
       window.render.successHandler(data);
-      window.bigPhoto.showBigPhoto(data);
-      window.render.renderListPhotos(data);
-      window.render.renderTenPhotos(data);
-      window.render.renderPhotos(data);
+      // window.bigPhoto.showBigPhoto(data);
+      // window.render.renderListPhotos(data);
+      // window.render.renderTenPhotos(data);
+      // window.render.renderMostCommentedPhotos(data);
+      window.render.switchPhotosList(data);
     })
     .catch(function (error) {
       window.bigPhoto.errorHandler(`Looks like there was a problem. Status Code: ` + error
