@@ -1,10 +1,32 @@
 "use strict";
 
 (function () {
-  // const MAX_PHOTO_COUNT = 25;
   const bigPicture = document.querySelector(`.big-picture`);
   const socialFooterText = document.querySelector(`.social__footer-text`);
   const closeBigPicture = document.querySelector(`.big-picture__cancel`);
+
+  const socialCommentTemplate = document.querySelector(`.social__comments`);
+  const socialComment = document.querySelector(`.social__comment`);
+
+  const getSocialComment = function (item) {
+    const socialCommentElement = socialComment.cloneNode(true);
+
+    socialCommentElement.querySelector(`.social__picture`).src = item.avatar;
+    socialCommentElement.querySelector(`.social__picture`).alt = item.name;
+    socialCommentElement.querySelector(`p`).textContent = item.message;
+
+    return socialCommentElement;
+  };
+
+  const insertSocialCommets = function (photo) {
+    const fragment = document.createDocumentFragment();
+
+    for (let i = 0; i < photo.comments.length; i++) {
+      fragment.appendChild(getSocialComment(photo.comments[i]));
+    }
+    socialCommentTemplate.innerHTML = ``;
+    socialCommentTemplate.appendChild(fragment);
+  };
 
   const openBigPhoto = function (item) {
     bigPicture.classList.remove(`hidden`);
@@ -19,13 +41,12 @@
     document.querySelector(`body`).classList.add(`modal-open`);
   };
 
-
   const showBigPhoto = function (data) {
     const smallPictures = document.querySelectorAll(`.picture`);
     for (let i = 0; i < smallPictures.length; i++) {
       smallPictures[i].addEventListener(`click`, function (evt) {
         evt.preventDefault();
-        window.render.insertSocialCommets(data[i]);
+        insertSocialCommets(data[i]);
         openBigPhoto(data[i]);
       });
     }
@@ -63,7 +84,7 @@
   };
 
   window.bigPhoto = {
-    showBigPhoto,
     errorHandler,
+    showBigPhoto
   };
 })();

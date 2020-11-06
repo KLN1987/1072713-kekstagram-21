@@ -5,7 +5,7 @@
     .querySelector(`.img-filters`)
     .classList.remove(`img-filters--inactive`);
 
-  const shuffle = function (arr) {
+  const shufflePictures = function (arr) {
     let j;
     let temp;
     for (let i = arr.length - 1; i > 0; i--) {
@@ -25,7 +25,7 @@
 
 
   window.sort = {
-    shuffle,
+    shufflePictures,
     sortPicturesByComments,
   };
 })();
