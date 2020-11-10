@@ -7,12 +7,6 @@
     })
     .then(function (data) {
       document.querySelector(`.img-filters`).classList.remove(`img-filters--inactive`);
-      // window.render.successHandler(data);
-      // window.bigPhoto.showBigPhoto(data);
-      // window.render.renderListPhotos(data);
-      // window.render.renderTenPhotos(data);
-      // window.render.renderMostCommentedPhotos(data);
-      // window.render.arrPhotos(data);
       window.render.switchPhotosList(data);
     })
     .catch(function (error) {

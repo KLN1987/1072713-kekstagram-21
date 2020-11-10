@@ -10,11 +10,13 @@
   const imgUploadEffectLevel = document.querySelector(`.img-upload__effect-level`);
 
   const onPopupEscPress = function (evt) {
-    if (evt.key !== ESC_KEY || textDescription === document.activeElement) {
-      /* проверка, есть ли курсор в поле ввода */
-      uploadOverlay.classList.remove(`hidden`);
-    } else {
-      closePopup();
+    if (evt.key === ESC_KEY) {
+      if (textDescription === document.activeElement) {
+        /* проверка, есть ли курсор в поле ввода */
+        uploadOverlay.classList.remove(`hidden`);
+      } else {
+        closePopup();
+      }
     }
   };
 

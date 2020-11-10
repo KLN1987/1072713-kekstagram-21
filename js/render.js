@@ -41,7 +41,10 @@
     });
   };
 
+  let arr = [];
   const switchPhotosList = window.debounce(function (data) {
+
+    arr = data.slice();
 
     btnsFilter.forEach(function (btn) {
       btn.addEventListener(`click`, function (evt) {
@@ -50,16 +53,18 @@
         removePictures();
         if (evt.target.id === `filter-default`) {
           successHandler(data);
+          window.bigPhoto.showBigPhoto(data);
         }
         if (evt.target.id === `filter-discussed`) {
-          window.sort.sortPicturesByComments(data);
-          successHandler(data);
+          window.sort.sortPicturesByComments(arr);
+          successHandler(arr);
+          window.bigPhoto.showBigPhoto(arr);
         }
         if (evt.target.id === `filter-random`) {
-          window.sort.shufflePictures(data);
-          successHandler(data.slice(0, RANDOM_PICTURES_COUNT));
+          window.sort.shufflePictures(arr);
+          successHandler(arr.slice(0, RANDOM_PICTURES_COUNT));
+          window.bigPhoto.showBigPhoto(arr);
         }
-        window.bigPhoto.showBigPhoto(data);
       });
     });
   });

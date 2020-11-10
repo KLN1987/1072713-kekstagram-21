@@ -1,8 +1,7 @@
 "use strict";
 
 (function () {
-  let VALUE_MIN_VISIBLE_COMMENTS = 5;
-
+  const VALUE_MIN_VISIBLE_COMMENTS = 5;
   const bigPicture = document.querySelector(`.big-picture`);
   const socialFooterText = document.querySelector(`.social__footer-text`);
   const closeBigPicture = document.querySelector(`.big-picture__cancel`);
@@ -24,29 +23,26 @@
   const insertMinSocialCommets = function (photo) {
     const fragment = document.createDocumentFragment();
 
-    const takeNumber = photo.comments.length > VALUE_MIN_VISIBLE_COMMENTS
-      ? VALUE_MIN_VISIBLE_COMMENTS
-      : photo.comments.length;
-
     socialCommentTemplate.innerHTML = ``;
 
-    for (let i = 0; i < takeNumber; i++) {
-      fragment.appendChild(getSocialComment(photo.comments[i]));
+    for (let i = 0; i < photo.length; i++) {
+      fragment.appendChild(getSocialComment(photo[i]));
     }
 
     socialCommentTemplate.appendChild(fragment);
   };
 
-  const addCountOpenComments = function (item) {
-    if (item.comments.length <= VALUE_MIN_VISIBLE_COMMENTS) {
-      bigPicture.querySelector(`.social__comment-count`).textContent = `${item.comments.length} из ${item.comments.length} комментариев`;
-    } else {
-      bigPicture.querySelector(`.social__comment-count`).textContent = `${VALUE_MIN_VISIBLE_COMMENTS} из ${item.comments.length} комментариев`;
-    }
-  };
+  let arr = [];
+  let currentComments = [];
+  let startCommentsLength = VALUE_MIN_VISIBLE_COMMENTS;
 
   const openBigPhoto = function (item) {
     bigPicture.classList.remove(`hidden`);
+
+    currentComments = item.comments;
+    startCommentsLength = VALUE_MIN_VISIBLE_COMMENTS;
+    arr = currentComments.slice();
+    let comments = arr.slice(0, startCommentsLength);
 
     btnCommentsLoader.disabled = false;
 
@@ -55,16 +51,9 @@
     bigPicture.querySelector(`.likes-count`).textContent = item.likes;
     bigPicture.querySelector(`.social__caption`).textContent = item.description;
     bigPicture.querySelector(`.social__comment-count`).textContent = ``;
+    bigPicture.querySelector(`.social__comment-count`).textContent = `${comments.length} из ${currentComments.length} комментариев`;
 
-    addCountOpenComments(item);
-
-    btnCommentsLoader.addEventListener(`click`, function () {
-      VALUE_MIN_VISIBLE_COMMENTS += 5;
-      insertMinSocialCommets(item);
-      addCountOpenComments(item);
-    });
-
-    insertMinSocialCommets(item);
+    insertMinSocialCommets(comments);
     document.querySelector(`body`).classList.add(`modal-open`);
   };
 
@@ -78,22 +67,32 @@
     }
   };
 
+  btnCommentsLoader.addEventListener(`click`, function () {
+    arr = currentComments.slice();
+    let comments = arr.slice(0, startCommentsLength);
+    if (currentComments.length > comments.length) {
+      startCommentsLength += VALUE_MIN_VISIBLE_COMMENTS;
+      comments = arr.slice(0, startCommentsLength);
+      insertMinSocialCommets(comments);
+      bigPicture.querySelector(`.social__comment-count`).textContent = `${comments.length} из ${currentComments.length} комментариев`;
+    } else {
+      btnCommentsLoader.disabled = true;
+    }
+  });
+
   closeBigPicture.addEventListener(`click`, function () {
     document.querySelector(`.big-picture`).classList.add(`hidden`);
     document.querySelector(`body`).classList.remove(`modal-open`);
-    VALUE_MIN_VISIBLE_COMMENTS = 5;
   });
 
   const onEscClose = function (evt) {
-    if (
-      evt.key === window.util.ESC_KEYCODE &&
-      socialFooterText === document.activeElement
-    ) {
-      document.querySelector(`.big-picture`).classList.remove(`hidden`);
-      VALUE_MIN_VISIBLE_COMMENTS = 5;
-    } else {
-      document.querySelector(`.big-picture`).classList.add(`hidden`);
-      document.querySelector(`body`).classList.remove(`modal-open`);
+    if (evt.key === window.util.ESC_KEYCODE) {
+      if (socialFooterText === document.activeElement) {
+        document.querySelector(`.big-picture`).classList.remove(`hidden`);
+      } else {
+        document.querySelector(`.big-picture`).classList.add(`hidden`);
+        document.querySelector(`body`).classList.remove(`modal-open`);
+      }
     }
   };
 
