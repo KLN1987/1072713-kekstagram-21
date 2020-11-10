@@ -70,7 +70,7 @@
   btnCommentsLoader.addEventListener(`click`, function () {
     arr = currentComments.slice();
     let comments = arr.slice(0, startCommentsLength);
-    if (currentComments.length > comments.length) {
+    if (currentComments.length > (comments.length + VALUE_MIN_VISIBLE_COMMENTS)) {
       startCommentsLength += VALUE_MIN_VISIBLE_COMMENTS;
       comments = arr.slice(0, startCommentsLength);
       insertMinSocialCommets(comments);

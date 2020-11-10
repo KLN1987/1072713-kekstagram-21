@@ -6,7 +6,6 @@
       return response.json();
     })
     .then(function (data) {
-      window.render.successHandler(data);
       window.render.switchPhotosList(data);
     })
     .catch(function (error) {

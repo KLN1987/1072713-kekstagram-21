@@ -45,6 +45,8 @@
   const switchPhotosList = window.debounce(function (data) {
 
     arr = data.slice();
+    successHandler(arr);
+    window.bigPhoto.showBigPhoto(arr);
 
     btnsFilter.forEach(function (btn) {
       btn.addEventListener(`click`, function (evt) {
