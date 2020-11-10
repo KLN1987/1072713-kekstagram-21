@@ -44,7 +44,7 @@
     arr = currentComments.slice();
     let comments = arr.slice(0, startCommentsLength);
 
-    btnCommentsLoader.disabled = false;
+    btnCommentsLoader.classList.remove(`hidden`);
 
     const bigPictureImg = bigPicture.querySelector(`.big-picture__img`).querySelector(`img`);
     bigPictureImg.src = item.url;
@@ -76,7 +76,7 @@
       insertMinSocialCommets(comments);
       bigPicture.querySelector(`.social__comment-count`).textContent = `${comments.length} из ${currentComments.length} комментариев`;
     } else {
-      btnCommentsLoader.disabled = true;
+      btnCommentsLoader.classList.add(`hidden`);
     }
   });
 
@@ -88,7 +88,7 @@
   const onEscClose = function (evt) {
     if (evt.key === window.util.ESC_KEYCODE) {
       if (socialFooterText === document.activeElement) {
-        document.querySelector(`.big-picture`).classList.remove(`hidden`);
+        document.querySelector(`.big-picture`).classList.add(`hidden`);
       } else {
         document.querySelector(`.big-picture`).classList.add(`hidden`);
         document.querySelector(`body`).classList.remove(`modal-open`);

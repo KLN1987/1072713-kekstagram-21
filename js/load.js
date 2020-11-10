@@ -6,7 +6,7 @@
       return response.json();
     })
     .then(function (data) {
-      document.querySelector(`.img-filters`).classList.remove(`img-filters--inactive`);
+      window.render.successHandler(data);
       window.render.switchPhotosList(data);
     })
     .catch(function (error) {
