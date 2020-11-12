@@ -19,7 +19,7 @@
   const imgUploadEffectLevel = document.querySelector(`.img-upload__effect-level`);
   let currentEffect = document.querySelector(`.effects__radio:checked`).value;
 
-  const resizeImg = function (evt) {
+  const resizeImg = (evt) => {
     let elem = evt.target;
     let curValue = parseInt(scaleControlValue.value, 10);
     let newContorlValue = elem.classList.contains(`scale__control--smaller`)
@@ -64,18 +64,18 @@
     },
   };
 
-  const onChangeEffect = function () {
+  const onChangeEffect = () => {
     currentEffect = document.querySelector(`.effects__radio:checked`).value;
     imgForEffect.className = `effects__preview--${currentEffect}`;
     imgUploadEffectLevel.classList[currentEffect === `none` ? `add` : `remove`](`hidden`);
     setEffectsValue();
   };
 
-  effectsRadio.forEach(function (effect) {
+  effectsRadio.forEach((effect) => {
     effect.addEventListener(`change`, onChangeEffect);
   });
 
-  const setEffectsValue = function () {
+  const setEffectsValue = () => {
     const position =
       effectLevelLine.offsetWidth - effectLevelPin.offsetWidth / 2;
 
@@ -85,7 +85,7 @@
     imgForEffect.style.filter = getEffectsStyle(currentEffect);
   };
 
-  const getEffectsStyle = function (effect, value) {
+  const getEffectsStyle = (effect, value) => {
     const currentValue =
       EFFECTS_VALUE_MAX[effect].min +
       (EFFECTS_VALUE_MAX[effect].max - EFFECTS_VALUE_MAX[effect].min) * value;
@@ -109,12 +109,12 @@
     }
   };
 
-  effectLevelPin.addEventListener(`mousedown`, function (evt) {
+  effectLevelPin.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
 
     let startCoordX = evt.clientX;
 
-    const onMouseMove = function (moveEvt) {
+    const onMouseMove = (moveEvt) => {
       moveEvt.preventDefault();
       let shiftX = startCoordX - moveEvt.clientX;
       let coordPin = effectLevelPin.offsetLeft - shiftX;
@@ -137,7 +137,7 @@
       imgForEffect.style.filter = getEffectsStyle(currentEffect, coordPin / effectLevelLine.offsetWidth
       );
     };
-    const onMouseUp = function (upEvt) {
+    const onMouseUp = (upEvt) => {
       upEvt.preventDefault();
 
       document.removeEventListener(`mousemove`, onMouseMove);

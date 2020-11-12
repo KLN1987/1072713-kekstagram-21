@@ -2,13 +2,13 @@
 
 (function () {
   fetch(`https://21.javascript.pages.academy/kekstagram/data`)
-    .then(function (response) {
+    .then((response) => {
       return response.json();
     })
-    .then(function (data) {
+    .then((data) => {
       window.render.switchPhotosList(data);
     })
-    .catch(function (error) {
+    .catch((error) => {
       window.bigPhoto.errorHandler(`Looks like there was a problem. Status Code: ` + error
       );
     });

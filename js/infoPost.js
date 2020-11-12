@@ -7,43 +7,45 @@
   const success = document.querySelector(`#success`);
   const error = document.querySelector(`#error`);
 
-  const onEscCloseSuccesWindow = function (evt) {
+  const onEscCloseSuccesWindow = (evt) => {
     if (evt.key === window.util.ESC_KEYCODE) {
       document.querySelector(`.success`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     }
   };
 
-  const onEscCloseErrorWindow = function (evt) {
+  const onEscCloseErrorWindow = (evt) => {
     if (evt.key === window.util.ESC_KEYCODE) {
       document.querySelector(`.error`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
     }
   };
 
-  const openSuccessWindow = function () {
+  const openSuccessWindow = () => {
     bigPhoto.classList.add(`hidden`);
     document.querySelector(`body`).classList.add(`modal-open`);
     elem.append(success.content.cloneNode(true));
     main.append(elem);
 
-    document.querySelector(`.success__button`).addEventListener(`click`, function () {
+    document.querySelector(`.success__button`).addEventListener(`click`, () => {
       document.querySelector(`.success`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
+      document.querySelector(`.success`).remove();
     });
 
     document.addEventListener(`keydown`, onEscCloseSuccesWindow);
   };
 
-  const openErrorWindow = function () {
+  const openErrorWindow = () => {
     bigPhoto.classList.add(`hidden`);
     document.querySelector(`body`).classList.add(`modal-open`);
     elem.append(error.content.cloneNode(true));
     main.append(elem);
 
-    document.querySelector(`.error__button`).addEventListener(`click`, function () {
+    document.querySelector(`.error__button`).addEventListener(`click`, () => {
       document.querySelector(`.error`).classList.add(`hidden`);
       document.querySelector(`body`).classList.remove(`modal-open`);
+      document.querySelector(`.error`).remove();
     });
 
     document.addEventListener(`keydown`, onEscCloseErrorWindow);

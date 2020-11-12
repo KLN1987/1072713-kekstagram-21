@@ -4,7 +4,7 @@
   const hashtagText = document.querySelector(`.text__hashtags`);
   const uploadSubmit = document.querySelector(`#upload-submit`);
 
-  const validateHashtag = function (hashtag) {
+  const validateHashtag = (hashtag) => {
     if (hashtag[0] !== `#`) {
       hashtagText.setCustomValidity(`Хэш-тег начинается с символа #`);
       return false;
@@ -24,11 +24,11 @@
     return true;
   };
 
-  const onHashtagChange = function () {
+  const onHashtagChange = () => {
     hashtagText.setCustomValidity(``);
   };
 
-  const validateListHashtag = function () {
+  const validateListHashtag = () => {
     const hashtagsArray = hashtagText.value.toLowerCase().split(` `);
 
     hashtagsArray.forEach((item, i) => {

@@ -10,7 +10,7 @@
   const imgForEffect = document.querySelector(`img`);
   const imgUploadEffectLevel = document.querySelector(`.img-upload__effect-level`);
 
-  const onPopupEscPress = function (evt) {
+  const onPopupEscPress = (evt) => {
     if (evt.key === ESC_KEY) {
       if (textDescription === document.activeElement || textHashtags === document.activeElement) {
         /* проверка, есть ли курсор в поле ввода */
@@ -22,7 +22,7 @@
   };
 
   /* функция открытия закрытого окна */
-  const openPopup = function () {
+  const openPopup = () => {
     uploadOverlay.classList.remove(`hidden`);
     document.addEventListener(`keydown`, onPopupEscPress);
     document.querySelector(`body`).classList.add(`modal-open`);
@@ -30,7 +30,7 @@
   };
 
   /* функция закрытия открытого окна */
-  const closePopup = function () {
+  const closePopup = () => {
     uploadOverlay.classList.add(`hidden`);
     document.querySelector(`body`).classList.remove(`modal-open`);
     imgForEffect.removeAttribute(`class`);
@@ -38,11 +38,11 @@
     imgForEffect.classList.add(`effect-none`);
   };
 
-  uploadFile.addEventListener(`change`, function () {
+  uploadFile.addEventListener(`change`, () => {
     openPopup();
   });
 
-  uploadCancel.addEventListener(`click`, function () {
+  uploadCancel.addEventListener(`click`, () => {
     closePopup();
   });
 

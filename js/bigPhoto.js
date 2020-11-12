@@ -10,7 +10,7 @@
   const socialCommentTemplate = document.querySelector(`.social__comments`);
   const socialComment = document.querySelector(`.social__comment`);
 
-  const getSocialComment = function (item) {
+  const getSocialComment = (item) => {
     const socialCommentElement = socialComment.cloneNode(true);
 
     socialCommentElement.querySelector(`.social__picture`).src = item.avatar;
@@ -20,12 +20,12 @@
     return socialCommentElement;
   };
 
-  const insertMinSocialCommets = function (photos) {
+  const insertMinSocialCommets = (photos) => {
     const fragment = document.createDocumentFragment();
 
     socialCommentTemplate.innerHTML = ``;
 
-    photos.forEach(function (photo) {
+    photos.forEach((photo) => {
       fragment.appendChild(getSocialComment(photo));
     });
 
@@ -36,7 +36,7 @@
   let currentComments = [];
   let startCommentsLength = VALUE_MIN_VISIBLE_COMMENTS;
 
-  const openBigPhoto = function (item) {
+  const openBigPhoto = (item) => {
     bigPicture.classList.remove(`hidden`);
 
     currentComments = item.comments;
@@ -61,7 +61,7 @@
     document.querySelector(`body`).classList.add(`modal-open`);
   };
 
-  const showBigPhoto = function (data) {
+  const showBigPhoto = (data) => {
     const smallPictures = document.querySelectorAll(`.picture`);
     for (let i = 0; i < smallPictures.length; i++) {
       smallPictures[i].addEventListener(`click`, function (evt) {
@@ -72,7 +72,7 @@
   };
 
 
-  btnCommentsLoader.addEventListener(`click`, function () {
+  btnCommentsLoader.addEventListener(`click`, () => {
     commentsCopyArray = currentComments.slice();
     let comments = commentsCopyArray.slice(0, startCommentsLength);
     startCommentsLength += VALUE_MIN_VISIBLE_COMMENTS;
@@ -88,12 +88,12 @@
     }
   });
 
-  closeBigPicture.addEventListener(`click`, function () {
+  closeBigPicture.addEventListener(`click`, () => {
     document.querySelector(`.big-picture`).classList.add(`hidden`);
     document.querySelector(`body`).classList.remove(`modal-open`);
   });
 
-  const onEscClose = function (evt) {
+  const onEscClose = (evt) => {
     if (evt.key === window.util.ESC_KEYCODE) {
       if (socialFooterText === document.activeElement) {
         document.querySelector(`.big-picture`).classList.remove(`hidden`);
@@ -106,7 +106,7 @@
 
   document.addEventListener(`keydown`, onEscClose);
 
-  const errorHandler = function (errorMessage) {
+  const errorHandler = (errorMessage) => {
     const node = document.createElement(`div`);
     node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: red;`;
     node.style.position = `absolute`;

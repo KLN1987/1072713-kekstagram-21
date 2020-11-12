@@ -6,7 +6,7 @@
   const similarListElement = document.querySelector(`.pictures`);
   const similarPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-  const renderSinglePictures = function (item) {
+  const renderSinglePictures = (item) => {
     const pictureElement = similarPictureTemplate.cloneNode(true);
 
     pictureElement.querySelector(`.picture__img`).src = item.url;
@@ -18,37 +18,37 @@
     return pictureElement;
   };
 
-  const successHandler = function (photos) {
+  const successHandler = (photos) => {
     const fragment = document.createDocumentFragment();
 
-    photos.forEach(function (photo) {
+    photos.forEach((photo) => {
       fragment.appendChild(renderSinglePictures(photo));
     });
 
     similarListElement.appendChild(fragment);
   };
 
-  const makeButtonInactive = function () {
+  const makeButtonInactive = () => {
     const filterButtonActive = document.querySelector(`.img-filters__button--active`);
     if (filterButtonActive) {
       filterButtonActive.classList.remove(`img-filters__button--active`);
     }
   };
 
-  const removePictures = function () {
+  const removePictures = () => {
     Array.prototype.forEach.call(similarListElement.querySelectorAll(`.picture`), function (picture) {
       picture.parentNode.removeChild(picture);
     });
   };
 
   let photosArray = [];
-  const switchPhotosList = window.debounce(function (data) {
+  const switchPhotosList = window.debounce((data) => {
 
     photosArray = data.slice();
     successHandler(photosArray);
     window.bigPhoto.showBigPhoto(photosArray);
 
-    btnsFilter.forEach(function (btn) {
+    btnsFilter.forEach((btn) => {
       btn.addEventListener(`click`, function (evt) {
         makeButtonInactive();
         evt.target.classList.add(`img-filters__button--active`);
