@@ -6,12 +6,13 @@
   const uploadCancel = document.querySelector(`#upload-cancel`);
   const uploadOverlay = document.querySelector(`.img-upload__overlay`);
   const textDescription = document.querySelector(`.text__description`);
+  const textHashtags = document.querySelector(`.text__hashtags`);
   const imgForEffect = document.querySelector(`img`);
   const imgUploadEffectLevel = document.querySelector(`.img-upload__effect-level`);
 
   const onPopupEscPress = function (evt) {
     if (evt.key === ESC_KEY) {
-      if (textDescription === document.activeElement) {
+      if (textDescription === document.activeElement || textHashtags === document.activeElement) {
         /* проверка, есть ли курсор в поле ввода */
         uploadOverlay.classList.remove(`hidden`);
       } else {

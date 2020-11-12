@@ -26,6 +26,9 @@
       ajaxSend(formData)
         .then(() => {
           form.reset();
+          const imgUploadPreviewImg = document.querySelector(`.img-upload__preview`).querySelector(`img`);
+          imgUploadPreviewImg.removeAttribute(`style`);
+          imgUploadPreviewImg.removeAttribute(`class`);
         })
         .catch(() => form.reset());
     });

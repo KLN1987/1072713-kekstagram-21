@@ -18,12 +18,12 @@
     return pictureElement;
   };
 
-  const successHandler = function (photo) {
+  const successHandler = function (photos) {
     const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < photo.length; i++) {
-      fragment.appendChild(renderSinglePictures(photo[i]));
-    }
+    photos.forEach(function (photo) {
+      fragment.appendChild(renderSinglePictures(photo));
+    });
 
     similarListElement.appendChild(fragment);
   };
@@ -41,12 +41,12 @@
     });
   };
 
-  let arr = [];
+  let photosArray = [];
   const switchPhotosList = window.debounce(function (data) {
 
-    arr = data.slice();
-    successHandler(arr);
-    window.bigPhoto.showBigPhoto(arr);
+    photosArray = data.slice();
+    successHandler(photosArray);
+    window.bigPhoto.showBigPhoto(photosArray);
 
     btnsFilter.forEach(function (btn) {
       btn.addEventListener(`click`, function (evt) {
@@ -58,14 +58,14 @@
           window.bigPhoto.showBigPhoto(data);
         }
         if (evt.target.id === `filter-discussed`) {
-          window.sort.sortPicturesByComments(arr);
-          successHandler(arr);
-          window.bigPhoto.showBigPhoto(arr);
+          window.sort.sortPicturesByComments(photosArray);
+          successHandler(photosArray);
+          window.bigPhoto.showBigPhoto(photosArray);
         }
         if (evt.target.id === `filter-random`) {
-          window.sort.shufflePictures(arr);
-          successHandler(arr.slice(0, RANDOM_PICTURES_COUNT));
-          window.bigPhoto.showBigPhoto(arr);
+          window.sort.shufflePictures(photosArray);
+          successHandler(photosArray.slice(0, RANDOM_PICTURES_COUNT));
+          window.bigPhoto.showBigPhoto(photosArray);
         }
       });
     });

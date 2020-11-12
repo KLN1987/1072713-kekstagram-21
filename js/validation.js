@@ -29,20 +29,20 @@
   };
 
   const validateListHashtag = function () {
-    const hashtagArray = hashtagText.value.toLowerCase().split(` `);
+    const hashtagsArray = hashtagText.value.toLowerCase().split(` `);
 
-    hashtagArray.forEach((item, i) => {
+    hashtagsArray.forEach((item, i) => {
       const isHashtagValid = validateHashtag(item);
       if (!isHashtagValid) {
         return;
       }
-      if (hashtagArray.indexOf(item, i + 1) > 0) {
+      if (hashtagsArray.indexOf(item, i + 1) > 0) {
         hashtagText.setCustomValidity(`Один и тот же хэш-тег не может быть использован дважды`);
         return;
       }
     });
 
-    if (hashtagArray.length > 5) {
+    if (hashtagsArray.length > 5) {
       hashtagText.setCustomValidity(`Хэштегов может быть максимум 5`);
       return;
     }

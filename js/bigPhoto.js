@@ -20,19 +20,19 @@
     return socialCommentElement;
   };
 
-  const insertMinSocialCommets = function (photo) {
+  const insertMinSocialCommets = function (photos) {
     const fragment = document.createDocumentFragment();
 
     socialCommentTemplate.innerHTML = ``;
 
-    for (let i = 0; i < photo.length; i++) {
-      fragment.appendChild(getSocialComment(photo[i]));
-    }
+    photos.forEach(function (photo) {
+      fragment.appendChild(getSocialComment(photo));
+    });
 
     socialCommentTemplate.appendChild(fragment);
   };
 
-  let arr = [];
+  let commentsCopyArray = [];
   let currentComments = [];
   let startCommentsLength = VALUE_MIN_VISIBLE_COMMENTS;
 
@@ -41,8 +41,8 @@
 
     currentComments = item.comments;
     startCommentsLength = VALUE_MIN_VISIBLE_COMMENTS;
-    arr = currentComments.slice();
-    let comments = arr.slice(0, startCommentsLength);
+    commentsCopyArray = currentComments.slice();
+    let comments = commentsCopyArray.slice(0, startCommentsLength);
 
     btnCommentsLoader.classList.remove(`hidden`);
 
@@ -73,10 +73,10 @@
 
 
   btnCommentsLoader.addEventListener(`click`, function () {
-    arr = currentComments.slice();
-    let comments = arr.slice(0, startCommentsLength);
+    commentsCopyArray = currentComments.slice();
+    let comments = commentsCopyArray.slice(0, startCommentsLength);
     startCommentsLength += VALUE_MIN_VISIBLE_COMMENTS;
-    comments = arr.slice(0, startCommentsLength);
+    comments = commentsCopyArray.slice(0, startCommentsLength);
     if (comments.length < currentComments.length) {
       insertMinSocialCommets(comments);
       bigPicture.querySelector(`.social__comment-count`).textContent = `${comments.length} из ${currentComments.length} комментариев`;
@@ -120,6 +120,6 @@
 
   window.bigPhoto = {
     errorHandler,
-    showBigPhoto,
+    showBigPhoto
   };
 })();

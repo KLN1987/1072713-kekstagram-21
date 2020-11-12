@@ -17,8 +17,8 @@
     return arr;
   };
 
-  const sortPicturesByComments = function (arr) {
-    arr.sort(function (picture1, picture2) {
+  const sortPicturesByComments = function (arrayPictures) {
+    arrayPictures.sort(function (picture1, picture2) {
       return picture2.comments.length - picture1.comments.length;
     });
   };
