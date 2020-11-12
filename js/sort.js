@@ -26,6 +26,6 @@
 
   window.sort = {
     shufflePictures,
-    sortPicturesByComments,
+    sortPicturesByComments
   };
 })();

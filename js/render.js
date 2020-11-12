@@ -1,6 +1,7 @@
 "use strict";
 
 (function () {
+  const RANDOM_PICTURES_COUNT = 10;
   const btnsFilter = document.querySelectorAll(`.img-filters__button`);
   const similarListElement = document.querySelector(`.pictures`);
   const similarPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
@@ -27,6 +28,12 @@
     similarListElement.appendChild(fragment);
   };
 
+  const makeButtonInactive = function () {
+    const filterButtonActive = document.querySelector(`.img-filters__button--active`);
+    if (filterButtonActive) {
+      filterButtonActive.classList.remove(`img-filters__button--active`);
+    }
+  };
 
   const removePictures = function () {
     Array.prototype.forEach.call(similarListElement.querySelectorAll(`.picture`), function (picture) {
@@ -34,23 +41,32 @@
     });
   };
 
+  let arr = [];
   const switchPhotosList = window.debounce(function (data) {
+
+    arr = data.slice();
+    successHandler(arr);
+    window.bigPhoto.showBigPhoto(arr);
+
     btnsFilter.forEach(function (btn) {
       btn.addEventListener(`click`, function (evt) {
-        removePictures(data);
+        makeButtonInactive();
+        evt.target.classList.add(`img-filters__button--active`);
+        removePictures();
         if (evt.target.id === `filter-default`) {
-          window.sort.shufflePictures(data);
           successHandler(data);
+          window.bigPhoto.showBigPhoto(data);
         }
         if (evt.target.id === `filter-discussed`) {
-          window.sort.sortPicturesByComments(data);
-          successHandler(data);
+          window.sort.sortPicturesByComments(arr);
+          successHandler(arr);
+          window.bigPhoto.showBigPhoto(arr);
         }
         if (evt.target.id === `filter-random`) {
-          window.sort.shufflePictures(data);
-          successHandler(data.slice(0, 10));
+          window.sort.shufflePictures(arr);
+          successHandler(arr.slice(0, RANDOM_PICTURES_COUNT));
+          window.bigPhoto.showBigPhoto(arr);
         }
-        window.bigPhoto.showBigPhoto(data);
       });
     });
   });
